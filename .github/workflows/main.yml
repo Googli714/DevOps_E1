@@ -36,5 +36,5 @@ jobs:
         echo "Remember to configure your test execution command!"
 
     - name: Build the Docker image
-      run: docker build -t my-flask-app .
+      run: docker build -t my-flask-app ./app/
       # Replace 'my-flask-app' with your desired image name
