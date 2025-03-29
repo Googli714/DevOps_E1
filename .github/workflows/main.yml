@@ -25,15 +25,16 @@ jobs:
         # Install any testing framework you are using (e.g., pytest)
         pip install pytest
 
-    - name: Run tests
-      run: |
-        # Replace this with the command to run your tests
-        # For example, if your tests are in a 'tests' directory and you use pytest:
-        pytest tests/
-        # If you have a specific test command, use that instead
-        # For example, for unittest discovery:
-        # python -m unittest discover -p 'test_*.py'
-        echo "Remember to configure your test execution command!"
+    - name: Test with pytest
+      run: pytest tests.py --doctest-modules --junitxml=junit/test-results.xml
+      
+    - name: Upload pytest test results
+      uses: actions/upload-artifact@v4
+      with:
+          name: pytest-results
+          path: junit/test-results.xml
+        # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
 
     - name: Build the Docker image
       run: docker build -t my-flask-app ./app/
