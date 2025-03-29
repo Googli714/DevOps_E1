@@ -38,4 +38,12 @@ jobs:
 
     - name: Build the Docker image
       run: docker build -t my-flask-app ./app/
+
+    - name: Publish test results
+      uses: dorny/test-reporter@v1
+      if: ${{ always() }}
+      with:
+        name: Pytest Results
+        path: junit/test-results.xml
+        reporter: java-junit
       # Replace 'my-flask-app' with your desired image name
