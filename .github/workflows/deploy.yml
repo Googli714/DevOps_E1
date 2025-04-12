@@ -60,6 +60,14 @@ jobs:
           # Update files via git pull
           print("Pulling latest code from repository...")
           consoles_url = f"{api_base}/consoles/"
+
+          consoles = requests.get(
+              consoles_url,
+              headers=headers,
+          )
+
+          print(consoles.content)
+
           response = requests.post(
               consoles_url,
               headers=headers,
