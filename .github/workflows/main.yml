@@ -46,4 +46,3 @@ jobs:
         name: Pytest Results
         path: junit/test-results.xml
         reporter: java-junit
-      # Replace 'my-flask-app' with your desired image name
