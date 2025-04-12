@@ -66,9 +66,9 @@ jobs:
               headers=headers,
           )
 
-          for console in consoles:
+          for console in consoles.json():
             _ = requests.delete(
-              consoles_url+console.id
+              consoles_url+console["id"]
             )
 
           print(f"Deleted all consoles")
