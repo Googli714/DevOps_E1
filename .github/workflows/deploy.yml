@@ -60,7 +60,7 @@ jobs:
           
           # Update files via git pull
           print("Pulling latest code from repository...")
-          console_url = f"{api_base}/consoles/39261810/"
+          console_url = f"{api_base}/consoles/39261810/send_input/"
           
           # Command to change to project directory and pull latest code
           git_pull_command = (
@@ -70,7 +70,6 @@ jobs:
           )
           
           # Send command to console
-          console_url = f"{consoles_url}{console_id}/send_input/"
           response = requests.post(
               console_url,
               headers=headers,
