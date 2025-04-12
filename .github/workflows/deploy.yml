@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     # Only run if triggered by the repository owner
-    if: github.actor == github.repository_owner
+    if: github.actor == github.repository_owner && startsWith(github.ref, 'refs/heads/release/')
     
     steps:
       - name: Checkout code
