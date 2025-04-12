@@ -24,7 +24,27 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       
+          - name: Test with pytest
+          run: pytest tests/ --doctest-modules --junitxml=junit/test-results.xml
+    
+      - name: Upload pytest test results
+        uses: actions/upload-artifact@v4
+        with:
+            name: pytest-results
+            path: junit/test-results.xml
+          # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
+    
+      - name: Publish test results
+        uses: dorny/test-reporter@v1
+        if: ${{ always() }}
+        with:
+          name: Pytest Results
+          path: junit/test-results.xml
+          reporter: java-junit
+      
       - name: Deploy to PythonAnywhere
+        if: ${{ success() }}
         env:
           PA_API_TOKEN: ${{ secrets.API_TOKEN }}
           PA_USERNAME: ${{ secrets.USERNAME }}
