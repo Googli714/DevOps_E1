@@ -67,7 +67,7 @@ jobs:
           # Command to change to project directory and pull latest code
           git_pull_command = (
               f"git pull && "
-              f"git checkout {branch_name} &&"
+              f"git checkout {branch_name} && "
               f"cd ~/{repo_name} && "
               f"pip install -r app/requirements.txt"
               "\n"
