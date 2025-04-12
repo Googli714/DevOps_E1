@@ -94,8 +94,11 @@ jobs:
 
           print(console_status.json())
 
+          frame = console_status.json()["console_frame_url"],
+
+
           _ = requests.get(
-            console_status.json()["console_frame_url"],
+            f"https://www.pythonanywhere.com/api/v0{frame}",
             headers=headers
           )
           
