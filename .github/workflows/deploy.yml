@@ -86,11 +86,18 @@ jobs:
               sys.exit(1)
               
           console_id = response.json()["id"]
+
+          console_status = requests.get(
+              f"{consoles_url}{console_id},
+              headers=headers,
+          )
+
+          print(console_status.json())
           
           # Command to change to project directory and pull latest code
           git_pull_command = (
+              f"git pull {repo_name} main && "
               f"cd ~/{repo_name} && "
-              f"git pull origin main && "
               f"pip install -r requirements.txt"
           )
           
