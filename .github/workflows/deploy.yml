@@ -60,54 +60,11 @@ jobs:
           
           # Update files via git pull
           print("Pulling latest code from repository...")
-          consoles_url = f"{api_base}/consoles/"
-
-          consoles = requests.get(
-              consoles_url,
-              headers=headers,
-          )
-
-          for console in consoles.json():
-            cid = console["id"]
-            _ = requests.delete(
-              consoles_url+f"{cid}",
-              headers=headers
-            )
-
-          print(f"Deleted all consoles")
-
-          response = requests.post(
-              consoles_url,
-              headers=headers,
-              json={"executable": "bash", "arguments": ""}
-          )
-          
-          time.sleep(10)
-
-          if response.status_code != 201:
-              print(f"Failed to create console: {response.text}")
-              sys.exit(1)
-              
-          console_id = response.json()["id"]
-
-          console_status = requests.get(
-              f"{consoles_url}{console_id}",
-              headers=headers,
-          )
-
-          print(console_status.json())
-
-          frame = console_status.json()["console_frame_url"],
-
-
-          _ = requests.get(
-            f"https://www.pythonanywhere.com/api/v0{frame}",
-            headers=headers
-          )
+          console_url = f"{api_base}/consoles/39261810/"
           
           # Command to change to project directory and pull latest code
           git_pull_command = (
-              f"git pull {repo_name} main && "
+              f"git pull && "
               f"cd ~/{repo_name} && "
               f"pip install -r requirements.txt"
           )
