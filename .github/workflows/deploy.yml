@@ -66,7 +66,12 @@ jobs:
               headers=headers,
           )
 
-          print(consoles.content)
+          for console in consoles:
+            _ = requests.delete(
+              consoles_url+console.id
+            )
+
+          print(f"Deleted all consoles")
 
           response = requests.post(
               consoles_url,
