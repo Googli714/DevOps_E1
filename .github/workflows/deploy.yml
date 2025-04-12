@@ -67,6 +67,7 @@ jobs:
               f"git pull && "
               f"cd ~/{repo_name} && "
               f"pip install -r requirements.txt"
+              "\n"
           )
           
           # Send command to console
