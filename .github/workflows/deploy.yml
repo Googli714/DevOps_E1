@@ -39,6 +39,7 @@ jobs:
           import os
           import requests
           import sys
+          import time
           
           # Get environment variables
           username = os.environ.get('PA_USERNAME')
@@ -81,6 +82,8 @@ jobs:
               json={"executable": "bash", "arguments": ""}
           )
           
+          time.sleep(10)
+
           if response.status_code != 201:
               print(f"Failed to create console: {response.text}")
               sys.exit(1)
