@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     # Only run if triggered by the repository owner
-    if: github.actor == github.repository_owner
+    if: github.actor == github.repository_owner && startsWith(github.ref, 'refs/heads/release/')
     
     steps:
       - name: Checkout code
@@ -30,6 +30,7 @@ jobs:
           PA_USERNAME: ${{ secrets.USERNAME }}
           # Use github.repository to extract just the repo name
           REPO_NAME: ${{ github.repository }}
+          BRANCH_NAME: ${{ github.ref_name }}
         run: |
           # Install PythonAnywhere API client
           pip install pythonanywhere
@@ -45,6 +46,7 @@ jobs:
           username = os.environ.get('PA_USERNAME')
           api_token = os.environ.get('PA_API_TOKEN')
           repo_name = os.environ.get('REPO_NAME').split('/')[1]  # Extract repo name from full path
+          branch_name = os.environ.get('BRANCH_NAME')
           
           if not all([username, api_token]):
               print("Error: Missing required environment variables")
@@ -65,6 +67,7 @@ jobs:
           # Command to change to project directory and pull latest code
           git_pull_command = (
               f"git pull && "
+              f"git checkout {branch_name} "
               f"cd ~/{repo_name} && "
               f"pip install -r app/requirements.txt"
               "\n"
