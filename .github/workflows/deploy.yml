@@ -93,8 +93,8 @@ jobs:
           )
 
           print(console_status.json())
-          
-          _ = request.get(
+
+          _ = requests.get(
             console_status.json()["console_frame_url"],
             headers=headers
           )
