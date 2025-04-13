@@ -1,13 +1,11 @@
 name: Deploy Flask to PythonAnywhere
 
-# Only allow manual triggers
 on:
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # Only run if triggered by the repository owner
     if: github.actor == github.repository_owner && startsWith(github.ref, 'refs/heads/release/')
     
     steps:
@@ -33,7 +31,6 @@ jobs:
         with:
             name: pytest-results
             path: junit/test-results.xml
-          # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
     
       - name: Publish test results
@@ -49,7 +46,6 @@ jobs:
         env:
           PA_API_TOKEN: ${{ secrets.API_TOKEN }}
           PA_USERNAME: ${{ secrets.USERNAME }}
-          # Use github.repository to extract just the repo name
           REPO_NAME: ${{ github.repository }}
           BRANCH_NAME: ${{ github.ref_name }}
         run: |
@@ -61,7 +57,6 @@ jobs:
           import os
           import requests
           import sys
-          import time
           
           # Get environment variables
           username = os.environ.get('PA_USERNAME')
